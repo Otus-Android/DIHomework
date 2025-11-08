@@ -13,6 +13,8 @@
 - **Products Screen** - список продуктов
 - **Favorites Screen** - список избранных продуктов
 
+<image width="200" src="https://github.com/Otus-Android/DIHomework/blob/master/img/1.png?raw=true"> <image width="200" src="https://github.com/Otus-Android/DIHomework/blob/master/img/2.png?raw=true">
+
 **Технологии:**
 - Jetpack Compose для UI
 - Navigation Compose для навигации
