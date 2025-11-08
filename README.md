@@ -1,11 +1,16 @@
 # Домашнее задание: Dependency Injection на Dagger 2
 
-## Цель
+### Цель
 Научиться проектировать DI-граф в Android-приложении с помощью Dagger 2
 
-## Описание проекта
+### Задание
+
+1. Переведите приложение с паттерна Service Locator на DI, используя Dagger 2.
+2. Для одной фичи используйте подход Component Dependencies, для второй — Subcomponent
+
+### Описание проекта
 Приложение **Products** с двумя экранами:
-- **Products Screen** - список продуктов в виде сетки (2 колонки)
+- **Products Screen** - список продуктов
 - **Favorites Screen** - список избранных продуктов
 
 **Технологии:**
@@ -16,14 +21,9 @@
 - Clean Architecture
 - Dagger 2 для DI
 
-## Задание
+### Подробнее что надо сделать
 
-### 1. Переведите приложение с паттерна Service Locator на DI, используя Dagger 2.
-### 2. Для одной фичи используйте подход Component Dependencies, для второй — Subcomponent
-
-### Подробнее
-
-#### AppComponent (@Singleton)
+#### Создайте AppComponent (Singleton)
 Главный компонент приложения с областью видимости `@Singleton`.
 
 **Что должен предоставлять:**
@@ -40,7 +40,7 @@
 - Не забудьте добавить SubcomponentsModule в список модулей
 - Создайте компонент в классе Application
 
-#### ProductsComponent (Component Dependencies)
+#### Создайте ProductsComponent (Component Dependencies)
 
 Для фичи Products сделайте компонент через Component Dependencies
 
@@ -57,7 +57,7 @@ interface ProductsComponent {
 }
 ```
 
-##### FavoritesComponent (Subcomponent)
+#### Создайте FavoritesComponent (Subcomponent)
 
 Для фичи Favorites сделайте компонент через Subcomponent
 
@@ -97,7 +97,7 @@ inline fun <reified T : Dependencies> Context.findDependencies(): T {
 ```
 Это один из способов. Можете сделать иначе.
 
-### DON'T (Не делайте так)
+#### DON'T (Не делайте так)
 
 1. **Не передавайте весь компонент**
 ```kotlin
