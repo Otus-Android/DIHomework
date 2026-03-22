@@ -13,20 +13,30 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.otus.dihomework.common.di.findDependencies
+import com.otus.dihomework.di.DaggerProductsComponent
+import com.otus.dihomework.di.ProductsDependencies
 import com.otus.dihomework.features.products.ProductsScreenState
 import com.otus.dihomework.features.products.ProductsViewModel
-import com.otus.dihomework.features.products.ProductsViewModelFactory
 
 @Composable
 fun ProductsScreenContent(
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
+    val factory = remember(context.applicationContext) {
+        DaggerProductsComponent.factory()
+            .create(context.findDependencies<ProductsDependencies>())
+            .viewModelFactory()
+    }
     val viewModel: ProductsViewModel = viewModel(
-        factory = ProductsViewModelFactory()
+        factory = factory
     )
 
     val state by viewModel.state.collectAsState()
