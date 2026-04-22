@@ -9,10 +9,13 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.otus.dihomework.common.domain_impl.FavoritesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
+import javax.inject.Singleton
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "favorites")
 
-class FavoritesRepositoryImpl(
+@Singleton
+class FavoritesRepositoryImpl @Inject constructor(
     private val context: Context
 ) : FavoritesRepository {
 
