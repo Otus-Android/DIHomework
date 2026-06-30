@@ -1,16 +1,19 @@
 package com.otus.dihomework.common.domain_impl
 
-import com.otus.dihomework.ServiceLocator
 import com.otus.dihomework.common.domain_api.ConsumeProductsUseCase
 import com.otus.dihomework.common.domain_api.ProductWithFavorite
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class ConsumeProductsUseCaseImpl() : ConsumeProductsUseCase {
-
-    private val productRepository = ServiceLocator.getProductRepository()
-    private val favoritesRepository = ServiceLocator.getFavoritesRepository()
+/**
+ * Реализация сценария получения списка продуктов с информацией об избранном.
+ */
+class ConsumeProductsUseCaseImpl @Inject constructor(
+    private val productRepository: ProductRepository,
+    private val favoritesRepository: FavoritesRepository
+) : ConsumeProductsUseCase {
 
     override fun invoke(): Flow<List<ProductWithFavorite>> {
         return combine(

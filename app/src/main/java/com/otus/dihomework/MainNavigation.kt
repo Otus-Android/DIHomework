@@ -26,11 +26,12 @@ sealed class Screen(val route: String, val titleRes: Int, val icon: ImageVector)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainNavigation() {
+fun MainNavigation(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     val screens = listOf(Screen.Products, Screen.Favorites)
 
     Scaffold(
+        modifier = modifier,
         topBar = {
             val navBackStackEntry by navController.currentBackStackEntryAsState()
             val currentDestination = navBackStackEntry?.destination
