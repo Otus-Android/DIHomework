@@ -1,0 +1,25 @@
+graph TD
+    App[ProductsApplication] --> AppComponent
+
+    subgraph AppComponent [AppComponent Singleton]
+        NM[NetworkModule]
+        DM[DataModule]
+        DomM[DomainModule]
+        SM[SubcomponentsModule]
+    end
+
+    AppComponent --> ProductsDependencies
+
+    subgraph ProductsFeature [Products Feature]
+        ProductsDependencies -.-> ProductsComponent["ProductsComponent FeatureScope"]
+        ProductsComponent --> PVF[ProductsViewModelFactory]
+        PVF --> PVM[ProductsViewModel]
+    end
+
+    subgraph FavoritesFeature [Favorites Feature]
+        AppComponent -- subcomponent --> FavoritesComponent["FavoritesComponent FeatureScope"]
+        FavoritesComponent --> FVF[FavoritesViewModelFactory]
+        FVF --> FVM[FavoritesViewModel]
+    end
+
+    AppComponent -.-> FavoritesFeature

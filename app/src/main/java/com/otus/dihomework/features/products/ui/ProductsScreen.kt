@@ -11,25 +11,37 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.otus.dihomework.common.di.findDependencies
+import com.otus.dihomework.features.products.DaggerProductsComponent
 import com.otus.dihomework.features.products.ProductsScreenState
 import com.otus.dihomework.features.products.ProductsViewModel
-import com.otus.dihomework.features.products.ProductsViewModelFactory
 
+/**
+ * Основной Composable-компонент экрана продуктов, отвечающий за создание DI-графа
+ * и инициализацию ViewModel.
+ */
 @Composable
 fun ProductsScreenContent(
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
+    val productsComponent = remember {
+        DaggerProductsComponent.factory().create(context.findDependencies())
+    }
+
     val viewModel: ProductsViewModel = viewModel(
-        factory = ProductsViewModelFactory()
+        factory = productsComponent.viewModelFactory()
     )
 
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     ProductsScreen(
         state = state,
