@@ -57,11 +57,14 @@ dependencies {
     implementation(libs.bundles.compose)
     implementation(libs.activity.compose)
     implementation(libs.navigation.compose)
+    implementation(libs.startup.runtime)
     debugImplementation(libs.compose.ui.tooling)
 
     // Dependency Injection
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
+
+    implementation("com.google.dagger:dagger:2.55")
 
     // Networking
     implementation(libs.bundles.network)
