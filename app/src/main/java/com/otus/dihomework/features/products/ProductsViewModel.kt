@@ -2,7 +2,8 @@ package com.otus.dihomework.features.products
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.otus.dihomework.ServiceLocator
+import com.otus.dihomework.common.domain_api.ConsumeProductsUseCase
+import com.otus.dihomework.common.domain_api.ToggleFavoriteUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,11 +14,11 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class ProductsViewModel() : ViewModel() {
-
-    private val consumeProductsUseCase = ServiceLocator.getConsumeProductsUseCase()
-    private val toggleFavoriteUseCase = ServiceLocator.getToggleFavoriteUseCase()
-    private val productsStateFactory = ServiceLocator.getProductsStateFactory()
+class ProductsViewModel(
+    private val toggleFavoriteUseCase: ToggleFavoriteUseCase,
+    private val productsStateFactory: ProductsStateFactory,
+    private val consumeProductsUseCase: ConsumeProductsUseCase
+) : ViewModel() {
 
     private val _state = MutableStateFlow(ProductsScreenState())
     val state: StateFlow<ProductsScreenState> = _state.asStateFlow()
