@@ -14,20 +14,27 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.otus.dihomework.R
+import com.otus.dihomework.di.AppComponent
+import com.otus.dihomework.di.DependenciesProvider
 import com.otus.dihomework.features.favorites.FavoritesScreenState
 import com.otus.dihomework.features.favorites.FavoritesViewModel
-import com.otus.dihomework.features.favorites.FavoritesViewModelFactory
 
 @Composable
 fun FavoritesScreenContent(
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
+    val appComponent =
+        (context.applicationContext as DependenciesProvider).getDependencies() as AppComponent
+    val favoritesComponent = appComponent.favoritesComponent().create()
+
     val viewModel: FavoritesViewModel = viewModel(
-        factory = FavoritesViewModelFactory()
+        factory = favoritesComponent.viewModelFactory()
     )
 
     val state by viewModel.state.collectAsState()
