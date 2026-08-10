@@ -19,6 +19,8 @@ interface AppComponent : ProductDependencies {
 
     fun favoritesComponent(): FavoritesComponent.Factory
 
+    fun mainActivityComponent(): MainActivityComponent.Factory
+
     @Component.Factory
     interface Factory {
         fun create(
