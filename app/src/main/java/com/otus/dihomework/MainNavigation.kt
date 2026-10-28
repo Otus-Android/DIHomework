@@ -16,7 +16,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.otus.dihomework.features.favorites.FavoritesViewModelFactory
 import com.otus.dihomework.features.favorites.ui.FavoritesScreenContent
+import com.otus.dihomework.features.products.ProductsViewModelFactory
 import com.otus.dihomework.features.products.ui.ProductsScreenContent
 
 sealed class Screen(val route: String, val titleRes: Int, val icon: ImageVector) {
@@ -26,7 +28,10 @@ sealed class Screen(val route: String, val titleRes: Int, val icon: ImageVector)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainNavigation() {
+fun MainNavigation(
+    productsViewModelFactory: ProductsViewModelFactory,
+    favoritesViewModelFactory: FavoritesViewModelFactory
+) {
     val navController = rememberNavController()
     val screens = listOf(Screen.Products, Screen.Favorites)
 
@@ -76,10 +81,10 @@ fun MainNavigation() {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Products.route) {
-                ProductsScreenContent()
+                ProductsScreenContent(factory = productsViewModelFactory)
             }
             composable(Screen.Favorites.route) {
-                FavoritesScreenContent()
+                FavoritesScreenContent(factory = favoritesViewModelFactory)
             }
         }
     }

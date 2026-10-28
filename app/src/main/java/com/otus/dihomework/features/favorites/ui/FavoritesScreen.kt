@@ -24,10 +24,11 @@ import com.otus.dihomework.features.favorites.FavoritesViewModelFactory
 
 @Composable
 fun FavoritesScreenContent(
+    factory: FavoritesViewModelFactory,
     modifier: Modifier = Modifier
 ) {
     val viewModel: FavoritesViewModel = viewModel(
-        factory = FavoritesViewModelFactory()
+        factory = factory
     )
 
     val state by viewModel.state.collectAsState()

@@ -23,10 +23,11 @@ import com.otus.dihomework.features.products.ProductsViewModelFactory
 
 @Composable
 fun ProductsScreenContent(
+    factory: ProductsViewModelFactory,
     modifier: Modifier = Modifier
 ) {
     val viewModel: ProductsViewModel = viewModel(
-        factory = ProductsViewModelFactory()
+        factory = factory
     )
 
     val state by viewModel.state.collectAsState()
